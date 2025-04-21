@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>blocksafe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-white text-gray-900 font-sans">
+    <div class="min-h-screen flex flex-col items-center justify-center px-4 py-12">
+      <h1 class="text-5xl font-semibold tracking-tight mb-6">blocksafe</h1>
+      <p class="text-lg text-center max-w-2xl mb-10">
+        Protege tus archivos, analiza contratos y detecta posibles amenazas digitales. Próximamente: análisis de carteras y enlaces cripto.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
+        <div class="p-6 border rounded-2xl shadow hover:shadow-lg transition">
+          <h2 class="text-xl font-semibold mb-2">Análisis de Archivos</h2>
+          <p class="text-sm text-gray-600 mb-4">Escanea archivos en busca de malware o contenido sospechoso.</p>
+          <button class="bg-black text-white px-4 py-2 rounded-xl text-sm">Subir archivo</button>
+        </div>
+
+        <div class="p-6 border rounded-2xl shadow hover:shadow-lg transition" id="cripto">
+          <h2 class="text-xl font-semibold mb-2">Criptoseguridad</h2>
+          <p class="text-sm text-gray-600 mb-4">Revisa carteras y transacciones para evitar estafas.</p>
+          <button class="bg-black text-white px-4 py-2 rounded-xl text-sm">Analizar cartera</button>
+        </div>
+
+        <div class="p-6 border rounded-2xl shadow hover:shadow-lg transition" id="enlaces">
+          <h2 class="text-xl font-semibold mb-2">Análisis de Enlaces</h2>
+          <p class="text-sm text-gray-600 mb-4">Detecta sitios web fraudulentos o maliciosos.</p>
+          <button class="bg-black text-white px-4 py-2 rounded-xl text-sm">Analizar enlace</button>
+        </div>
+      </div>
+
+      <footer class="mt-16 text-sm text-gray-400">
+        &copy; 2025 blocksafe. Todos los derechos reservados.
+      </footer>
+    </div>
+  </body>
+</html>
