@@ -1,41 +1,28 @@
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>blocksafe.ai</title>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
-    /* Fondo animado */
     body {
-      background: linear-gradient(45deg, #6a11cb, #2575fc);
-      background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
-    }
-
-    @keyframes gradientBG {
-      0% {
-        background-position: 0% 50%;
-      }
-
-      50% {
-        background-position: 100% 50%;
-      }
-
-      100% {
-        background-position: 0% 50%;
-      }
-    }
-
-    /* Estilo de texto */
-    .title {
+      background-color: #fff;
+      color: black;
       font-family: 'Roboto', sans-serif;
-      font-weight: 900;
     }
 
-    /* Estilo del botón */
+    .title {
+      font-size: 3rem;
+      font-weight: 700;
+    }
+
     .button-custom {
       background-color: #1a202c;
       color: white;
@@ -52,84 +39,104 @@
       background-color: #2d3748;
     }
 
-    /* Estilo de los cuadros de contenido */
-    .card {
-      border-radius: 1.5rem;
-      box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
-      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    .error {
+      color: red;
     }
 
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.2);
+    .success {
+      color: green;
     }
   </style>
+
 </head>
 
 <body class="text-gray-900 font-sans">
 
-  <!-- Sección de análisis de enlaces -->
-  <section class="py-12">
-    <div class="max-w-2xl mx-auto px-4 text-center">
-      <h2 class="text-3xl font-semibold text-white mb-4">Análisis de enlaces web</h2>
-      <p class="text-white text-lg mb-6">Pega un enlace sospechoso y verifica si es seguro.</p>
-      <input id="linkInput" type="url" placeholder="https://ejemplo.com"
-        class="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-      <button onclick="analizarLink()" class="button-custom">Analizar</button>
-
-      <p id="resultadoLink" class="mt-6 text-lg text-white"></p>
-    </div>
-  </section>
-
-  <!-- Sección principal -->
   <div class="min-h-screen flex flex-col items-center justify-center px-4 py-12">
-    <h1 class="title text-5xl text-white tracking-tight mb-6">blocksafe</h1>
-    <p class="text-lg text-center text-white max-w-2xl mb-10">
-      Protege tus archivos, analiza contratos y detecta posibles amenazas digitales. Próximamente: análisis de carteras y
-      enlaces cripto.
+    <h1 class="title text-5xl text-black tracking-tight mb-6">blocksafe.ai</h1>
+    <p class="text-lg text-center text-black max-w-2xl mb-10">
+      Protege tus archivos, analiza contratos y detecta posibles amenazas digitales. ¡Inicia sesión para continuar!
     </p>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
-      <!-- Tarjetas de contenido -->
-      <div class="p-6 bg-white card">
-        <h2 class="text-xl font-semibold mb-2">Análisis de Archivos</h2>
-        <p class="text-sm text-gray-600 mb-4">Escanea archivos en busca de malware o contenido sospechoso.</p>
-        <button class="button-custom">Subir archivo</button>
-      </div>
-      <div class="p-6 bg-white card">
-        <h2 class="text-xl font-semibold mb-2">Criptoseguridad</h2>
-        <p class="text-sm text-gray-600 mb-4">Revisa carteras y transacciones para evitar estafas.</p>
-        <button class="button-custom">Analizar cartera</button>
-      </div>
-      <div class="p-6 bg-white card">
-        <h2 class="text-xl font-semibold mb-2">Análisis de Enlaces</h2>
-        <p class="text-sm text-gray-600 mb-4">Detecta sitios web fraudulentos o maliciosos.</p>
-        <button class="button-custom">Analizar enlace</button>
-      </div>
-    </div>
 
-    <footer class="mt-16 text-sm text-gray-400">
-      &copy; 2025 blocksafe. Todos los derechos reservados.
-    </footer>
+    <!-- Formulario de inicio de sesión -->
+    <div class="max-w-md w-full space-y-4">
+      <input id="email" type="email" placeholder="Correo electrónico" class="w-full p-3 border border-gray-300 rounded-lg mb-4" />
+      <input id="password" type="password" placeholder="Contraseña" class="w-full p-3 border border-gray-300 rounded-lg mb-4" />
+
+      <button id="loginButton" class="button-custom">Iniciar sesión</button>
+      <button id="registerButton" class="button-custom">Registrar</button>
+
+      <p id="errorMessage" class="error text-sm mt-2"></p>
+      <p id="successMessage" class="success text-sm mt-2"></p>
+
+      <hr class="my-4">
+      <!-- Iniciar sesión con Google -->
+      <button id="googleSignInButton" class="button-custom">Iniciar sesión con Google</button>
+    </div>
   </div>
 
+  <footer class="mt-16 text-sm text-gray-400">
+    &copy; 2025 blocksafe. Todos los derechos reservados.
+  </footer>
+
   <script>
-    function analizarLink() {
-      const input = document.getElementById('linkInput').value;
-      const resultado = document.getElementById('resultadoLink');
-      if (!input.startsWith('http')) {
-        resultado.textContent = 'Por favor, introduce un enlace válido.';
-        resultado.classList.add('text-red-500');
-        return;
-      }
-      // Lógica de simulación (puedes conectar aquí con tu API real)
-      if (input.includes('scam') || input.includes('phishing')) {
-        resultado.textContent = '⚠️ Este enlace puede ser peligroso.';
-        resultado.className = 'mt-6 text-lg font-medium text-red-600';
-      } else {
-        resultado.textContent = '✅ Este enlace parece seguro.';
-        resultado.className = 'mt-6 text-lg font-medium text-green-600';
-      }
-    }
+    // Configuración de Firebase
+    const firebaseConfig = {
+      apiKey: "TU_API_KEY",
+      authDomain: "TU_AUTH_DOMAIN",
+      projectId: "TU_PROJECT_ID",
+      storageBucket: "TU_STORAGE_BUCKET",
+      messagingSenderId: "TU_MESSAGING_SENDER_ID",
+      appId: "TU_APP_ID"
+    };
+
+    // Inicializa Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    // Función de inicio de sesión con correo y contraseña
+    document.getElementById('loginButton').addEventListener('click', () => {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      auth.signInWithEmailAndPassword(email, password)
+        .then(() => {
+          // Redirige después de iniciar sesión correctamente
+          window.location.href = "dashboard.html";  // Cambia esto a la URL de tu página de usuario.
+        })
+        .catch((error) => {
+          document.getElementById('errorMessage').textContent = error.message;
+        });
+    });
+
+    // Función de registro con correo y contraseña
+    document.getElementById('registerButton').addEventListener('click', () => {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(() => {
+          document.getElementById('successMessage').textContent = "Usuario registrado correctamente!";
+        })
+        .catch((error) => {
+          document.getElementById('errorMessage').textContent = error.message;
+        });
+    });
+
+    // Función de inicio de sesión con Google
+    document.getElementById('googleSignInButton').addEventListener('click', () => {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider)
+        .then((result) => {
+          const user = result.user;
+          console.log(user);
+          window.location.href = "dashboard.html";  // Cambia esto a la URL de tu página de usuario.
+        })
+        .catch((error) => {
+          console.error(error.message);
+        });
+    });
   </script>
 
 </body>
