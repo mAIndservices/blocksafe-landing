@@ -1,109 +1,55 @@
 
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blocksafe AI</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #0f172a;
-            --accent-color: #38bdf8;
-            --background-color: #0e0e2c;
-            --text-color: #e2e8f0;
-        }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>blocksafe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-white text-gray-900 font-sans">
+    <!-- Navbar -->
+    <header class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+      <h1 class="text-2xl font-semibold lowercase">blocksafe</h1>
+      <nav class="space-x-6 text-sm">
+        <a href="#archivos" class="hover:underline">Análisis de Archivos</a>
+        <a href="#cripto" class="hover:underline">Análisis Cripto</a>
+        <a href="#enlaces" class="hover:underline">Análisis de Enlaces</a>
+        <a href="#contacto" class="hover:underline">Contacto</a>
+      </nav>
+    </header>
 
-        * {
-            box-sizing: border-box;
-        }
+    <!-- Hero Section -->
+    <section class="text-center px-6 py-24">
+      <h2 class="text-4xl font-semibold mb-4">Protege tus archivos. Protege tu dinero.</h2>
+      <p class="text-lg text-gray-600 max-w-xl mx-auto mb-8">
+        blocksafe analiza documentos, enlaces y wallets con inteligencia artificial para detectar amenazas digitales y estafas.
+      </p>
+      <a href="#archivos" class="bg-black text-white px-6 py-3 rounded-xl text-sm hover:bg-gray-900">Probar ahora</a>
+    </section>
 
-        body {
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            background: var(--background-color);
-            color: var(--text-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            overflow: hidden;
-        }
+    <!-- Secciones -->
+    <section id="archivos" class="px-6 py-16 border-t border-gray-200">
+      <h3 class="text-2xl font-medium mb-4">Análisis de Archivos</h3>
+      <p class="text-gray-600 mb-4">Sube archivos PDF, DOCX o TXT y detecta si contienen malware, phishing o amenazas ocultas.</p>
+      <button class="px-4 py-2 border rounded-xl text-sm">Subir archivo</button>
+    </section>
 
-        .hero {
-            text-align: center;
-            max-width: 800px;
-            padding: 40px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(12px);
-        }
+    <section id="cripto" class="px-6 py-16 border-t border-gray-200">
+      <h3 class="text-2xl font-medium mb-4">Análisis Cripto</h3>
+      <p class="text-gray-600 mb-4">Analiza wallets, tokens y contratos inteligentes para detectar posibles fraudes o actividades sospechosas.</p>
+      <button class="px-4 py-2 border rounded-xl text-sm">Introducir dirección</button>
+    </section>
 
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            font-weight: 600;
-            color: var(--accent-color);
-        }
+    <section id="enlaces" class="px-6 py-16 border-t border-gray-200">
+      <h3 class="text-2xl font-medium mb-4">Análisis de Enlaces Web</h3>
+      <p class="text-gray-600 mb-4">Comprueba si un enlace web está vinculado a páginas maliciosas, scams o malware.</p>
+      <button class="px-4 py-2 border rounded-xl text-sm">Analizar enlace</button>
+    </section>
 
-        p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            color: #cbd5e1;
-        }
-
-        .cta-button {
-            background-color: var(--accent-color);
-            color: var(--primary-color);
-            border: none;
-            padding: 14px 28px;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            text-decoration: none;
-        }
-
-        .cta-button:hover {
-            background-color: #0ea5e9;
-        }
-
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at center, #1e3a8a 0%, #0e0e2c 70%);
-            animation: rotateBackground 60s linear infinite;
-            z-index: -1;
-        }
-
-        @keyframes rotateBackground {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2rem;
-            }
-
-            p {
-                font-size: 1rem;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="bg-animation"></div>
-    <div class="hero">
-        <h1>Blocksafe AI</h1>
-        <p>Escanea contratos y archivos digitales en busca de malware, fraudes y amenazas ocultas usando inteligencia artificial de última generación.</p>
-        <a class="cta-button" href="#">Probar análisis (muy pronto)</a>
-    </div>
-</body>
+    <!-- Contacto -->
+    <footer id="contacto" class="px-6 py-16 border-t border-gray-200 text-sm text-gray-500">
+      <p>blocksafe — contacto: blocksafeai@proton.me</p>
+    </footer>
+  </body>
 </html>
