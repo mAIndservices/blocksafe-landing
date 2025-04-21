@@ -8,6 +8,40 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="bg-white text-gray-900 font-sans">
+    <section class="bg-white py-12">
+  <div class="max-w-xl mx-auto px-4 text-center">
+    <h2 class="text-2xl font-semibold mb-4">Análisis de enlaces web</h2>
+    <p class="text-gray-600 mb-6">Pega un enlace sospechoso y verifica si es seguro.</p>
+    <input id="linkInput" type="url" placeholder="https://ejemplo.com" 
+           class="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+    <button onclick="analizarLink()" 
+            class="bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition">Analizar</button>
+<script>
+  function analizarLink() {
+    const input = document.getElementById('linkInput').value;
+    const resultado = document.getElementById('resultadoLink');
+
+    if (!input.startsWith('http')) {
+      resultado.textContent = 'Por favor, introduce un enlace válido.';
+      resultado.classList.add('text-red-500');
+      return;
+    }
+
+    // Ejemplo de lógica "mock" (luego se sustituye por API real)
+    if (input.includes('scam') || input.includes('phishing')) {
+      resultado.textContent = '⚠️ Este enlace puede ser peligroso.';
+      resultado.className = 'mt-6 text-lg font-medium text-red-600';
+    } else {
+      resultado.textContent = '✅ Este enlace parece seguro.';
+      resultado.className = 'mt-6 text-lg font-medium text-green-600';
+    }
+  }
+</script>
+
+    <p id="resultadoLink" class="mt-6 text-lg font-medium text-gray-800"></p>
+  </div>
+</section>
+
     <div class="min-h-screen flex flex-col items-center justify-center px-4 py-12">
       <h1 class="text-5xl font-semibold tracking-tight mb-6">blocksafe</h1>
       <p class="text-lg text-center max-w-2xl mb-10">
@@ -39,4 +73,5 @@
       </footer>
     </div>
   </body>
+
 </html>
